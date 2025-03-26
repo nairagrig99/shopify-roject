@@ -1,5 +1,5 @@
 {{ 'main-cart.css' | asset_url | stylesheet_tag }}
-<div>
+<div class="cart__page">
     <div class="cart-block">
         {% for item in cart.items %}
             <div class="cart__item">
@@ -47,7 +47,10 @@
             </div>
         {% endfor %}
     </div>
-
+    <div class="cart-total">
+       <b>Total {{ cart.total_price | money }}</b>
+        <a class="button" href="/checkout">Checkout</a>
+    </div>
 </div>
 
 {% schema %}

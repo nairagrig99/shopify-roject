@@ -8,7 +8,7 @@
     <link rel="canonical" href="{{ canonical_url }}">
     {{ content_for_header }}
     <link rel="stylesheet" href="{{ 'style.css' | asset_url }}">
-    <title></title>
+    <script defer src="{{ 'product-form.js' | asset_url }}"></script>
     <script defer src="{{ 'quantity-change.js' | asset_url }}"></script>
 </head>
 <body>
@@ -19,5 +19,6 @@
     {{ content_for_layout }}
 </main>
 {% sections 'footer-group' %}
+{% section 'cart-drawer' %}
 </body>
 </html>

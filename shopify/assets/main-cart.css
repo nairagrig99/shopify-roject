@@ -1,9 +1,8 @@
- .cart-block {
-     display: flex;
-     flex-direction: column;
-     gap: 15px;
-     margin: 80px 40px;
- }
+.cart-block {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
 
 .cart__item img {
     width: 150px;
@@ -51,8 +50,16 @@
     color: white;
     padding: 10px 15px;
 }
+
 .cart__item-content__left-side-content {
     display: flex;
     flex-direction: column;
     gap: 10px;
+}
+
+.cart__page {
+    display: flex;
+    align-items: flex-start;
+    margin: 80px 40px;
+    gap: 80px;
 }

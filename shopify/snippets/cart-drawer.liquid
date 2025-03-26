@@ -1,0 +1,88 @@
+<cart-update-drawer>
+  <div id="cart-drawer" class="cart-drawer hidden">
+
+    <div class="cart-drawer-header">
+      <h2>Your Bag</h2>
+      <button id="close-cart-drawer" class="close-cart-drawer">&times;</button>
+    </div>
+
+      <div class="cart-drawer-content">
+        <ul id="cart-items">
+          {% assign subtotal = 0 %}
+          {% for item in cart.items %}
+            <li class="cart-item drawer__cart-items" data-id="{{ item.id }}">
+              <img src="{{ item.image | img_url: 'medium' }}" alt="{{ item.title }}">
+              <div class="item-details">
+                <div class="item-details__block">
+                  <h6 class="item-details__title">{{ item.title }}</h6>
+                  <div class="cart-line-item__price">
+                    <span class="regular-price cart-item-price">{{ item.price | times: item.quantity | money }}</span>
+                    {% if item.compare_at_price != blank %}
+                      <span class="discount compare">{{ item.compare_at_price }}</span>
+                    {% else %}
+
+                      {% assign lineItemVariant = null %}
+                      {% for variant in item.product.variants %}
+                        {% if variant.id == item.variant_id %}
+                          <span
+                            class="discount compare">{{ variant.compare_at_price | times: item.quantity | money }}</span>
+                          {% assign lineItemVariant = variant %}
+                        {% endif %}
+                      {% endfor %}
+
+                      {% assign com_price = lineItemVariant.price | times: item.quantity %}
+                      {% if lineItemVariant.compare_at_price %}
+                        {% assign com_price = lineItemVariant.compare_at_price | times: item.quantity %}
+                      {% endif %}
+                      {% assign subtotal = subtotal | plus: com_price %}
+                    {% endif %}
+                  </div>
+                </div>
+                <div class="item-details__price">
+                  <div class="quantity-block">
+                    <form>
+                      <button type="button" class="quantity-decrease">−</button>
+
+                      <input type="number" name="quantity"
+                             value="{{ item.quantity }}"
+                             cart-item-id="{{ item.id }}"
+                             cart-item-price="{{ item.price }}"
+                             min="1"
+                             class="quantity-input__drawer">
+                      <button type="button" class="quantity-increase">+</button>
+                    </form>
+                  </div>
+                  <button class="remove-cart-item" data-id="{{ item.id }}">
+                    <img
+                      src="//www.drmbernstein.com/cdn/shop/t/20/assets/delete-button.svg?v=28130143662363548821740738825"
+                      alt="Delete button" width="20" height="20"></button>
+                </div>
+              </div>
+            </li>
+          {% endfor %}
+        </ul>
+
+        <div class="cart-total">
+          <div class="flex cart-total__subtotal">
+            <p>Subtotal</p>
+            <p>{{ subtotal | money }}</p></div>
+
+          <div class="flex"><b>Savings</b> <b>-{{ subtotal | minus: cart.total_price | money }}</b></div>
+
+          <p class="item-details__text">{{ section.settings.text }}</p>
+
+          <div class="flex"><b>Total</b> <b>{{ cart.total_price | money }}</b></div>
+          <div class="checkout-button">
+            <a href="/checkout" class=" btn btn-fill btn-fw checkout-btn">Checkout</a>
+            {% comment %}<a href="/cart" class="cart-drawer__link">View All cart</a>{% endcomment %}
+            <div class="cart-shipping-title">Free Express Shipping With&nbsp;<strong><span style="color:#4F1F9A;">Fed</span><span style="color:#FF802B;">Ex</span></strong>&nbsp;&&nbsp;</div>
+          </div>
+          <input type="hidden" value="{{ cart.item_count }}" id="updateCartCount">
+        </div>
+      </div>
+
+  </div>
+</cart-update-drawer>
+
+
+

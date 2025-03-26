@@ -12,7 +12,7 @@
         {% else %}
             <b>{{ product.price | money }}</b>
         {% endif %}
-        <div class="product__form">
+        <div class="product__form main-page__product-form">
             {% form 'product', product, action: '/cart/add', method: 'post' %}
                 <quantity-change>
                     <div class="product__form-quantity">
