@@ -1,0 +1,53 @@
+
+{
+  "name": "t:sections.header.name",
+  "type": "header",
+  "sections": {
+    "announcement-bar": {
+      "type": "announcement-bar",
+      "settings": {
+        "text": "<p> Presidents’ Day Sale - 20% off sitewide* with code: PRESIDENT (Exclusions may apply. Comparable value. Terms apply)</p>",
+        "bg_color": "#40251a",
+        "text_color": "#ffffff"
+      }
+    },
+    "header_GRqrFG": {
+      "type": "header",
+      "blocks": {
+        "left_side_link_tnz6WV": {
+          "type": "left-side-link",
+          "settings": {
+            "link_title": "1-855-310-1450",
+            "link": ""
+          }
+        },
+        "left_side_link_MgeVaP": {
+          "type": "left-side-link",
+          "settings": {
+            "link_title": "CART",
+            "link": ""
+          }
+        },
+        "left_side_link_8cFfY8": {
+          "type": "left-side-link",
+          "settings": {
+            "link_title": "MY ACCOUNT",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "left_side_link_tnz6WV",
+        "left_side_link_MgeVaP",
+        "left_side_link_8cFfY8"
+      ],
+      "settings": {
+        "show_cart": true
+      }
+    }
+  },
+  "order": [
+    "announcement-bar",
+    "header_GRqrFG"
+  ]
+}

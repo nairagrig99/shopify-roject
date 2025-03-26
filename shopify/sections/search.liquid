@@ -1,0 +1,20 @@
+{% for item in search.results %}
+  {% if item.object_type == 'product' %}
+    <div class="product">
+      <a href="{{ item.url }}">
+        <img src="{{ item.featured_image | img_url: 'medium' }}">
+        <h2>{{ item.title }}</h2>
+      </a>
+    </div>
+  {% endif %}
+{% endfor %}
+
+
+
+{% schema %}
+{
+  "name":"Search",
+  "settings":[],
+  "presets":[{ "name":"Search"}]
+}
+{% endschema %}

@@ -1,0 +1,57 @@
+{% liquid
+    assign content = section.settings.text
+    assign bg_color = section.settings.bg_color
+    assign text_color = section.settings.text_color
+%}
+
+<style>
+    .announcement-bar {
+        background-color: {{ bg_color }};
+    }
+    .txt {
+      color: {{ text_color }};
+    }
+</style>
+{% if content != blank %}
+    <section class="announcement-bar text-center p-4">
+        <div >
+            <div class="txt [&_strong]:text-yellow-500">{{ content }}</div>
+        </div>
+    </section>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Announcement bar",
+  "enabled_on": {
+    "groups": [
+      "header"
+    ]
+  },
+  "settings": [
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "text"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#40251a"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#000000"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Announcement bar"
+    }
+  ]
+}
+
+{% endschema %}

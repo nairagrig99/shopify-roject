@@ -1,0 +1,42 @@
+{{ 'main-page.css' | asset_url | stylesheet_tag }}
+
+<div class="product-cart">
+    {% for collection in collections %}
+        {% for product in collection.products %}
+            <a href="{{ product.url }}" class="product-cart__item">
+                <div class="product-cart__item-image">
+                    <img src="{{ product.featured_image | img_url: 'master' }}" alt="">
+                </div>
+                <div class="product-cart__item-content">
+                    <h2 class="product__title">{{ product.title }}</h2>
+                    <p>{{ product.price | money }}</p>
+                    {% form 'product', product, action: '/cart/add', method: 'post' %}
+                        <input type="hidden" name="quantity" min="1" value="1"><br>
+                        <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+                        <input type="submit" value="Add to cart"><br>
+                    {% endform %}
+                </div>
+            </a>
+        {% endfor %}
+    {% endfor %}
+</div>
+
+{% schema %}
+{
+  "name": "Main Page",
+  "settings": [
+    {
+      "type": "text",
+      "id": "text",
+      "label": "text",
+      "default": "hello world"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Main Page"
+    }
+  ]
+}
+
+{% endschema %}

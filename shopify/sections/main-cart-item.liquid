@@ -1,0 +1,58 @@
+{{ 'main-cart.css' | asset_url | stylesheet_tag }}
+<div>
+    <div class="cart-block">
+        {% for item in cart.items %}
+            <div class="cart__item">
+                <div class="cart__item-content">
+                    <div class="cart__item-content__left-side">
+                        <a href="{{ item.url }}">
+                            <img src="{{ item.image | img_url: 'master' }}" alt="">
+                        </a>
+                        <div class="cart__item-content__left-side-content">
+                            <h2>{{ item.title | link_to: item.url }}</h2>
+                            <b>{{ item.price | money }}</b>
+                            <quantity-change>
+                                <div class="product__form-quantity">
+                                    <form method="post" action="/cart/change">
+                                        <input type="hidden" name="id" value="{{ item.key }}">
+                                        <input type="hidden" name="quantity" value="{{ item.quantity | minus: 1 | at_least: 1 }}">
+                                        <button type="submit" class="quantity-decrease">−</button>
+                                    </form>
+
+                                    <input type="number" name="quantity" min="1" value="{{ item.quantity }}" id="quantity"/><br>
+
+                                    <form method="post" action="/cart/change">
+                                        <input type="hidden" name="id" value="{{ item.key }}">
+                                        <input type="hidden" name="quantity" value="{{ item.quantity | plus: 1 }}">
+                                        <button type="submit" class="quantity-increase">+</button>
+                                    </form>
+                                </div>
+                            </quantity-change>
+                        </div>
+                    </div>
+                    <a href="{{ item.url_to_remove }}" class="remove__cart-item">Remove</a>
+
+                    {% comment %} remove cart-item alternative variant  {% endcomment %}
+
+                    {% comment %}
+                    <div class="remove__cart-item_alternative-variant">
+                        <form method="post" action="/cart/change">
+                            <input type="hidden" name="id" value="{{ item.key }}">
+                            <input type="hidden" name="quantity" value="0">
+                            <button type="submit">Remove 2</button>
+                        </form>
+                    </div>
+                    {% endcomment %}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+</div>
+
+{% schema %}
+{
+  "name": "Main Cart item",
+  "settings": []
+}
+{% endschema %}

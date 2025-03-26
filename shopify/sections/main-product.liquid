@@ -1,0 +1,44 @@
+{{ 'main-product.css' | asset_url | stylesheet_tag }}
+
+<div class="product">
+    <div class="left__side-product">
+        {{ product.featured_image | img_url: "master" | img_tag }}
+    </div>
+    <div class="right__side-product">
+        <h2 class="product__title">{{ product.title }}</h2>
+        {% if product.compare_at_price > product.price %}
+            <b>{{ product.price | money }}</b> <br>
+            <del class="product__price-discount">{{ product.compare_at_price | money }}</del>
+        {% else %}
+            <b>{{ product.price | money }}</b>
+        {% endif %}
+        <div class="product__form">
+            {% form 'product', product, action: '/cart/add', method: 'post' %}
+                <quantity-change>
+                    <div class="product__form-quantity">
+                        <button type="button" class="quantity-decrease">−</button>
+                        <input type="number" name="quantity" min="1" value="1" id="quantity"><br>
+                        <button type="button" class="quantity-increase">+</button>
+                    </div>
+                </quantity-change>
+                <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+                <input type="submit" value="Add to cart"><br>
+                {{ form | payment_button }}
+            {% endform %}
+        </div>
+    </div>
+
+</div>
+
+
+{% schema %}
+{
+  "name": "Main Product",
+  "settings": [],
+  "presets": [
+    {
+      "name": "Main Product"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,137 @@
+{% liquid
+    assign show_cart = section.settings.show_cart
+    assign logo = section.settings.logo
+%}
+
+<header>
+    <div class="flex flex-col ">
+
+        <div class="border-b flex justify-between px-4 py-3">
+            <div>
+
+                <ul class="flex gap-2.5">
+                    {% for link in linklists.left-up-menu.links %}
+                        <li>
+                            <a class="uppercase text-[.7em]" href="{{ link.url }}">
+                                {{ link.title }}
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div>
+                <ul class="flex gap-2.5">
+                    {% for block in section.blocks %}
+                        <li>
+                            <a class="uppercase text-[.7em]" href="{{ block.settings.link }}">
+                                {{ block.settings.link_title }}
+                            </a>
+                        </li>
+                    {% endfor %}
+                    {% if show_cart %}
+                        <li>
+                            {% render 'icons', type: 'cart' %}
+                        </li>
+                    {% endif %}
+
+                </ul>
+
+            </div>
+        </div>
+        <div class="flex justify-between">
+            <div>
+                {% if logo != blank %}
+
+                  {{ logo | image_url:width:360,height:42 |  image_tag }}
+
+                {% endif %}
+               
+            </div>
+            <div>
+
+                <form action="{{ routes.search_url }}">
+                    <input type="text"
+                           placeholder="Search"
+                           name="q"
+                           value="{{ search.terms | escape }}"
+                    >
+                    <input type="submit" value="Search">
+                </form>
+
+            </div>
+            <div class="flex">
+                <nav>
+                    <ul class="flex gap-2.5">
+                        {% for link in linklists.main-menu.links %}
+                            <li>
+                                <a class="capitalize text-[.7em]" href="{{ link.url }}">
+                                    {{ link.title }}
+                                </a>
+                                {% if link.links.size > 0 %}
+                                    <ul class="hidden">
+                                        {% for child_link in link.links %}
+                                            <li>
+                                                <strong>
+                                                    <a class="capitalize"
+                                                       href="{{ child_link.url }}">
+                                                        {{ child_link.title }}
+                                                    </a>
+                                                </strong>
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                {% endif %}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+{% schema %}
+{
+  "name": "Header",
+  "enabled_on": {
+    "groups": [
+      "header"
+    ]
+  },
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "t:sections.header.settings.logo.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_cart",
+      "label": "t:sections.header.settings.enable_cart.label",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "left-side-link",
+      "name": "Left Side Link",
+      "settings": [
+        {
+          "type": "text",
+          "id": "link_title",
+          "label": "t:sections.header.blocks.right-menu.settings.text.label"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "t:sections.header.blocks.right-menu.settings.link.label"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Header"
+    }
+  ]
+}
+{% endschema %}
