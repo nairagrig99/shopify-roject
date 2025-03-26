@@ -1,5 +1,4 @@
 class QuantityChange extends HTMLElement {
-    static observedAttributes = ["color", "size"];
 
     constructor() {
         super();

@@ -7,7 +7,8 @@
                 <div class="product-cart__item-image">
                     <img src="{{ product.featured_image | img_url: 'master' }}" alt="">
                 </div>
-                <div class="product-cart__item-content">
+
+                <div class="product-cart__item-content main-page__product-form">
                     <h2 class="product__title">{{ product.title }}</h2>
                     <p>{{ product.price | money }}</p>
                     {% form 'product', product, action: '/cart/add', method: 'post' %}

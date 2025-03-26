@@ -2,13 +2,11 @@
     assign show_cart = section.settings.show_cart
     assign logo = section.settings.logo
 %}
-
 <header>
     <div class="flex flex-col ">
 
         <div class="border-b flex justify-between px-4 py-3">
             <div>
-
                 <ul class="flex gap-2.5">
                     {% for link in linklists.left-up-menu.links %}
                         <li>
@@ -29,11 +27,10 @@
                         </li>
                     {% endfor %}
                     {% if show_cart %}
-                        <li>
+                        <li class="cart-icon">
                             {% render 'icons', type: 'cart' %}
                         </li>
                     {% endif %}
-
                 </ul>
 
             </div>

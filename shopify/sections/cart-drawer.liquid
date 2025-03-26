@@ -1,0 +1,13 @@
+<div class="drawer__cart-section">
+  {%- render 'cart-drawer', section: section -%}
+</div>
+
+{{ 'cart-drawer.css' | asset_url | stylesheet_tag }}
+{{ 'cart-drawer.js' | asset_url | script_tag }}
+
+{% schema %}
+{
+  "name": "Cart Drawer",
+  "settings": []
+}
+{% endschema %}
