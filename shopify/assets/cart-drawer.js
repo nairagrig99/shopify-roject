@@ -59,7 +59,6 @@ class CartUpdateDrawer extends HTMLElement {
 
     connectedCallbackCartInteraction() {
         const icon = document.querySelector('.cart-icon');
-        console.log('icon',icon)
         if (icon) {
             icon.removeEventListener('click', this.cartInteraction);
             icon.addEventListener('click', this.cartInteraction);
@@ -69,7 +68,6 @@ class CartUpdateDrawer extends HTMLElement {
     disconnectedCallbackCartInteraction() {
         const icon = document.querySelector('.cart-icon');
         if (icon) {
-            console.log('disconnect')
             icon.removeEventListener('click', this.cartInteraction);
         }
     }
@@ -112,18 +110,15 @@ class CartUpdateDrawer extends HTMLElement {
     }
 
     cartUpdate() {
-        const quantityInput = this.querySelectorAll('.quantity-input__drawer');
-        console.log('quantityInput',quantityInput);
-        if (quantityInput.length > 0) {
-            console.log('quantityInput',quantityInput)
-            this.quantityUpdate(quantityInput);
-            this.removeCartItem(quantityInput);
+        const qtyInputElement = this.querySelectorAll('.quantity-input__drawer');
+        if (qtyInputElement.length > 0) {
+            this.quantityUpdate(qtyInputElement);
+            this.removeCartItem(qtyInputElement);
 
-            quantityInput.forEach((input) => {
+            qtyInputElement.forEach((input) => {
                 input.addEventListener('change', (event) => {
-                    console.log('change input',input);
                     // Disable all forms while updating
-                    quantityInput.forEach((inp) => {
+                    qtyInputElement.forEach((inp) => {
                         inp.closest('form').style.pointerEvents = 'none'
                         inp.closest('form').style.opacity = '0.5';
                     });
@@ -160,7 +155,7 @@ class CartUpdateDrawer extends HTMLElement {
         }
     }
 
-    quantityUpdate(quantityInput) {
+    quantityUpdate(qtyInputElement) {
         const quantityDecrease = document.querySelectorAll('.quantity-decrease');
         const quantityIncrease = document.querySelectorAll('.quantity-increase');
 
@@ -176,26 +171,26 @@ class CartUpdateDrawer extends HTMLElement {
         });
 
         // Add fresh event listeners
-        document.querySelectorAll('.quantity-decrease').forEach((decrease, index) => {
+        document.querySelectorAll('.quantity-decrease__drawer').forEach((decrease, index) => {
             decrease.addEventListener('click', () => {
-                if (quantityInput[index] && quantityInput[index].value > 1) {
-                    quantityInput[index].value = +quantityInput[index].value - 1;
-                    quantityInput[index].dispatchEvent(new Event('change', {bubbles: true}));
+                if (qtyInputElement[index] && qtyInputElement[index].value > 1) {
+                    qtyInputElement[index].value = +qtyInputElement[index].value - 1;
+                    qtyInputElement[index].dispatchEvent(new Event('change', {bubbles: true}));
                 }
             });
         });
 
-        document.querySelectorAll('.quantity-increase').forEach((increase, index) => {
+        document.querySelectorAll('.quantity-increase__drawer').forEach((increase, index) => {
             increase.addEventListener('click', () => {
-                if (quantityInput[index]) {
-                    quantityInput[index].value = +quantityInput[index].value + 1;
-                    quantityInput[index].dispatchEvent(new Event('change', {bubbles: true}));
+                if (qtyInputElement[index]) {
+                    qtyInputElement[index].value = +qtyInputElement[index].value + 1;
+                    qtyInputElement[index].dispatchEvent(new Event('change', {bubbles: true}));
                 }
             });
         });
     }
 
-    drawCart(data, isInteraction = false) {
+    drawCart(data) {
         const newDrawer = data['cart-drawer'];
         const tempDiv = document.createElement('div');
 
