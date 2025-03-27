@@ -41,7 +41,7 @@
                 <div class="item-details__price">
                   <div class="quantity-block">
                     <form>
-                      <button type="button" class="quantity-decrease">−</button>
+                      <button type="button" class="quantity-decrease__drawer">−</button>
 
                       <input type="number" name="quantity"
                              value="{{ item.quantity }}"
@@ -49,7 +49,7 @@
                              cart-item-price="{{ item.price }}"
                              min="1"
                              class="quantity-input__drawer">
-                      <button type="button" class="quantity-increase">+</button>
+                      <button type="button" class="quantity-increase__drawer">+</button>
                     </form>
                   </div>
                   <button class="remove-cart-item" data-id="{{ item.id }}">

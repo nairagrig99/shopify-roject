@@ -30,7 +30,6 @@ window.addEventListener('DOMContentLoaded', () => {
             id: parseInt(productID)
           }
         }
-        console.log('cartItemData',cartItemData)
         const data = {
           items: [
             cartItemData
