@@ -1,0 +1,71 @@
+{{ "product-reciomendation.css" | asset_url | stylesheet_tag }}
+{% assign recommendationMetafield = product.metafields.custom.product_recomendations.value %}
+
+{% if section.settings.show_metafields_recomendation == true %}
+    {% if recommendationMetafield.count > 0 %}
+        <div class="product-recommendations">
+            <div>
+                <h2 class="title">{{ section.settings.title }}</h2>
+            </div>
+            <div class="product-recommendations__list">
+                {% for metafield in recommendationMetafield %}
+                    <a href="{{ metafield.url }}">
+                        <div class="product-recommendations__item">
+                            <img src="{{ metafield.featured_image | img_url: 'master' }}" alt="">
+                            <h2>{{ metafield.title }}</h2>
+                            <b>{{ metafield.price | money }}</b>
+                        </div>
+                    </a>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+    {% else %}
+    <div class="product-recommendations">
+        {% assign recommendationMetaObject = product.metafields.custom.product_recomendation_metaobject.value %}
+        {% if recommendationMetaObject.count > 0 %}
+            <div>
+                <h2 class="title">{{ section.settings.title }}</h2>
+            </div>
+            <div class="product-recommendations__list">
+
+                {% for metaobject in recommendationMetaObject %}
+                    <a href="{{ metaobject.url }}">
+                        <div class="product-recommendations__item">
+                            <img src="{{ metaobject.image | img_url: 'master' }}" alt="">
+                            <h2>{{ metaobject.title }}</h2>
+                            <b>{{ metaobject.price | money }}</b>
+                        </div>
+                    </a>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+    </div>
+{% endif %}
+
+
+{% schema %}
+{
+  "name": "recommendations Metafield",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "You May Also like"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_metafields_recomendation",
+      "label": "show metafields recomendation",
+      "default": false
+    }
+  ],
+  "presets": [
+    {
+      "name": "recommendations Metafield"
+    }
+  ]
+}
+{% endschema %}
