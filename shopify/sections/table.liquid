@@ -1,0 +1,53 @@
+{% assign tableObject = shop.metaobjects.table %}
+
+<table>
+
+    {% for table in tableObject.values %}
+        <thead>
+        <tr>
+            <th> {{ table.heading.value.tableid }}</th>
+            <th> {{ table.heading.value.head_1 }}</th>
+            <th> {{ table.heading.value.head_2 }}</th>
+            <th> {{ table.heading.value.head_3 }}</th>
+            <th> {{ table.heading.value.head_4 }}</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for tabel in table.table_column_list.value %}
+            <tr>
+                <td>{{ forloop.index }}</td>
+                <td> {{ tabel.name }}</td>
+                <td> {{ tabel.address }}</td>
+                <td> {{ tabel.city }}</td>
+                <td> {{ tabel.phone }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    {% endfor %}
+</table>
+
+<style>
+
+    table {
+        border: 1px solid;
+        margin: 0 auto;
+    }
+    tr {
+        border: 1px solid;
+    }
+    table th,table td {
+        padding: 15px;
+    }
+</style>
+
+{% schema %}
+{
+  "name": "table",
+  "settings": [],
+  "presets": [
+    {
+      "name": "table"
+    }
+  ]
+}
+{% endschema %}
